@@ -1,46 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import API from '../api';
-import Layout from '../components/Layout.jsx';
+// src/pages/Produtos.jsx
+import React from 'react';
 
-export default function Products(){
-  const [products, setProducts] = useState([]);
-  const [form, setForm] = useState({name:'', sku:'', price:0, stock:0});
-
-  useEffect(()=>{ load(); },[]);
-
-  async function load(){
-    const res = await API.get('/products');
-    setProducts(res.data);
-  }
-
-  async function save(){
-    await API.post('/products', form);
-    setForm({name:'', sku:'', price:0, stock:0});
-    load();
-  }
+const Produtos = () => {
+  const produtos = [
+    { nome: 'Treino Online', preco: 'R$200', estoque: 50 },
+    { nome: 'Academia FitPlay', preco: 'R$500', estoque: 20 },
+    { nome: 'Personal Trainer', preco: 'R$350', estoque: 15 },
+  ];
 
   return (
-    <Layout>
-      <div className="card">
-        <h2>Produtos</h2>
-        <div style={{display:'flex', gap:8}}>
-          <input className="input" placeholder="Nome" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} />
-          <input className="input" placeholder="SKU" value={form.sku} onChange={e=>setForm({...form,sku:e.target.value})} />
-          <input className="input" placeholder="Preço" value={form.price} onChange={e=>setForm({...form,price:parseFloat(e.target.value||0)})} />
-          <input className="input" placeholder="Estoque" value={form.stock} onChange={e=>setForm({...form,stock:parseInt(e.target.value||0)})} />
-          <button className="btn" onClick={save}>Adicionar</button>
-        </div>
-        <div style={{marginTop:12}}>
-          <table style={{width:'100%'}}>
-            <thead><tr><th>Produto</th><th>SKU</th><th>Preço</th><th>Estoque</th></tr></thead>
-            <tbody>
-              {products.map(p=> (
-                <tr key={p._id}><td>{p.name}</td><td>{p.sku}</td><td>R$ {p.price.toFixed(2)}</td><td>{p.stock}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-semibold mb-6">Produtos</h1>
+      <div className="bg-white rounded shadow p-4 overflow-auto">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr>
+              <th className="border-b px-4 py-2">Produto</th>
+              <th className="border-b px-4 py-2">Preço</th>
+              <th className="border-b px-4 py-2">Estoque</th>
+            </tr>
+          </thead>
+          <tbody>
+            {produtos.map((p, index) => (
+              <tr key={index}>
+                <td className="border-b px-4 py-2">{p.nome}</td>
+                <td className="border-b px-4 py-2">{p.preco}</td>
+                <td className="border-b px-4 py-2">{p.estoque}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </Layout>
-  )
-}
+    </div>
+  );
+};
+
+export default Produtos;
