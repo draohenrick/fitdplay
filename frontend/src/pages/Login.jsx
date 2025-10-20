@@ -1,44 +1,36 @@
-import React, { useState } from 'react';
-import API from '../api';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from "react";
+import api from "../api/axiosConfig";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
-export default function Login(){
-  const [cpfOrCode, setCpfOrCode] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const nav = useNavigate();
+export default function Login() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  async function handleSubmit(e){
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res = await API.post('/auth/login', { cpfOrCode });
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('tenantId', res.data.user.tenantId);
-      localStorage.setItem('tenantName', res.data.user.tenantName || '');
-      nav('/dashboard');
-    }catch(err){
-      setError(err.response?.data?.message || 'Erro no login');
+    try {
+      const res = await api.post("/login", form);
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Erro no login");
     }
-  }
+  };
 
   return (
-    <div className="container">
-      <div className="card" style={{maxWidth:540, margin:'40px auto'}}>
-        <h2>Entrar</h2>
-        <p className="small">Use CPF do gerente ou código do vendedor.</p>
-        <form onSubmit={handleSubmit}>
-          <div style={{marginBottom:8}}>
-            <input className="input" value={cpfOrCode} onChange={e=>setCpfOrCode(e.target.value)} placeholder="CPF ou Código do Vendedor" style={{width:'100%'}} />
-          </div>
-          <div style={{marginBottom:8}}>
-            <input className="input" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Senha (se cadastrada)" style={{width:'100%'}} />
-          </div>
-          {error && <div style={{color:'red', marginBottom:8}}>{error}</div>}
-          <button className="btn" type="submit">Entrar</button>
-        </form>
-        <div style={{marginTop:12}} className="small">Ainda não tem uma loja? <Link to="/register">Cadastre aqui</Link></div>
-        <div style={{marginTop:12}} className="small">Inicia em: https://fitpay-10ee3a71.base44.app/</div>
-      </div>
+    <div className="max-w-md mx-auto mt-20 p-6 bg-white shadow-md rounded-md">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <Input label="Email" type="email" name="email" value={form.email} onChange={handleChange} placeholder="Seu email" />
+        <Input label="Senha" type="password" name="password" value={form.password} onChange={handleChange} placeholder="Senha" />
+        <Button type="submit">Entrar</Button>
+      </form>
     </div>
-  )
+  );
 }
