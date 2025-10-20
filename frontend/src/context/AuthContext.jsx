@@ -5,9 +5,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null); // {name, type: 'gerente'|'vendedor', store: {name, logo}}
-  
-  // Carrega usuário do localStorage
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
@@ -16,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
-    // Redireciona conforme tipo
     if (userData.type === "gerente") navigate("/dashboard-gerente");
     else navigate("/dashboard-vendedor");
   };
