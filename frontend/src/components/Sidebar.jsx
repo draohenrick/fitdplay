@@ -1,32 +1,36 @@
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
-export default function Sidebar() {
-  const links = [
-    { name: 'Dashboard', path: '/' },
-    { name: 'Vendas', path: '/vendas' },
-    { name: 'Produtos', path: '/produtos' },
-    { name: 'Vendedores', path: '/vendedores' },
-    { name: 'Relatórios', path: '/relatorios' },
-    { name: 'Configurações', path: '/configuracoes' },
-    { name: 'Suporte', path: '/suporte' },
-    { name: 'Perfil', path: '/perfil' },
-    { name: 'Integrações', path: '/integracoes' },
+const Sidebar = () => {
+  const location = useLocation();
+  const menu = [
+    { name: "Dashboard Gerente", path: "/dashboard-gerente" },
+    { name: "Dashboard Vendedor", path: "/dashboard-vendedor" },
+    { name: "Dashboard Loja", path: "/dashboard-loja" },
+    { name: "Clientes", path: "/clientes" },
+    { name: "Pedidos", path: "/pedidos" },
+    { name: "Produtos", path: "/produtos" },
+    { name: "Perfil", path: "/perfil" },
   ];
 
   return (
-    <aside className="w-64 h-screen bg-gray-900 text-white p-4">
-      <h1 className="text-2xl font-bold mb-6">FitPlay</h1>
-      <nav className="flex flex-col gap-2">
-        {links.map(link => (
-          <NavLink 
-            key={link.name} 
-            to={link.path} 
-            className={({ isActive }) => isActive ? 'bg-gray-700 p-2 rounded' : 'p-2 rounded hover:bg-gray-800'}
+    <aside className="w-64 bg-white shadow-md flex flex-col">
+      <div className="p-6 text-2xl font-bold border-b">FitPlay</div>
+      <nav className="flex-1 p-4 space-y-2">
+        {menu.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`block px-4 py-2 rounded hover:bg-gray-200 ${
+              location.pathname === item.path ? "bg-gray-200 font-semibold" : ""
+            }`}
           >
-            {link.name}
-          </NavLink>
+            {item.name}
+          </Link>
         ))}
       </nav>
     </aside>
   );
-}
+};
+
+export default Sidebar;
