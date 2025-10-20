@@ -1,1 +1,13 @@
-import { Link } from 'react-router-dom'; export default function Nav(){ return (<div className="menu card"><h3>FitPlay</h3><ul style={{listStyle:'none', padding:0}}><li><Link to="/dashboard">Dashboard</Link></li><li><Link to="/vendas">Vendas</Link></li><li><Link to="/produtos">Produtos</Link></li><li><Link to="/vendedores">Vendedores</Link></li><li><Link to="/relatorios">Relatórios</Link></li><li><Link to="/configuracoes">Configurações</Link></li><li><Link to="/suporte">Suporte</Link></li></ul></div>) }
+import { Link } from "react-router-dom";
+
+export default function Navbar() {
+  return (
+    <nav className="bg-blue-900 text-white py-4 px-8 flex justify-between items-center">
+      <h1 className="text-xl font-bold">FitDplay</h1>
+      <div className="space-x-4">
+        <Link to="/login" className="hover:text-gray-300 transition">Login</Link>
+        <Link to="/register" className="hover:text-gray-300 transition">Cadastro</Link>
+      </div>
+    </nav>
+  );
+}
