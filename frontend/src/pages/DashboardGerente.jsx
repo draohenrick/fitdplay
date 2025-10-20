@@ -1,89 +1,35 @@
-// src/pages/DashboardGerente.jsx
-import React from 'react';
+import React from "react";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import Card from "../components/Card";
+import Table from "../components/Table";
 
 const DashboardGerente = () => {
+  const summary = [
+    { title: "Faturamento Hoje", value: "R$ 15.000", color: "green" },
+    { title: "Clientes Ativos", value: "120", color: "blue" },
+    { title: "Pedidos Pendentes", value: "5", color: "yellow" },
+    { title: "Produtos Cadastrados", value: "80", color: "gray" },
+  ];
+
+  const tableColumns = ["Cliente", "Produto", "Quantidade", "Valor", "Status"];
+  const tableData = [
+    { Cliente: "Lucas Almeida", Produto: "Treino Online", Quantidade: 1, Valor: "R$ 200", Status: "Concluído" },
+    { Cliente: "Fernanda Souza", Produto: "Academia FitPlay", Quantidade: 2, Valor: "R$ 1.000", Status: "Pendente" },
+    { Cliente: "Gustavo Lima", Produto: "Personal Trainer", Quantidade: 1, Valor: "R$ 350", Status: "Cancelado" },
+  ];
+
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md flex flex-col">
-        <div className="p-6 text-2xl font-bold border-b">FitPlay</div>
-        <nav className="flex-1 p-4 space-y-2">
-          <a href="#" className="block px-4 py-2 rounded hover:bg-gray-200">Dashboard</a>
-          <a href="#" className="block px-4 py-2 rounded hover:bg-gray-200">Clientes</a>
-          <a href="#" className="block px-4 py-2 rounded hover:bg-gray-200">Vendas</a>
-          <a href="#" className="block px-4 py-2 rounded hover:bg-gray-200">Configurações</a>
-        </nav>
-      </aside>
-
-      {/* Main content */}
+      <Sidebar />
       <div className="flex-1 p-6 overflow-auto">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-semibold text-gray-800">Dashboard do Gerente</h1>
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-700">Olá, Gerente</span>
-            <img
-              src="https://via.placeholder.com/40"
-              alt="Usuário"
-              className="rounded-full"
-            />
-          </div>
-        </header>
-
-        {/* Summary Cards */}
+        <Header title="Dashboard do Gerente" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white p-4 rounded shadow flex flex-col">
-            <span className="text-gray-500">Vendas</span>
-            <span className="text-2xl font-bold">R$ 25.000</span>
-          </div>
-          <div className="bg-white p-4 rounded shadow flex flex-col">
-            <span className="text-gray-500">Clientes</span>
-            <span className="text-2xl font-bold">120</span>
-          </div>
-          <div className="bg-white p-4 rounded shadow flex flex-col">
-            <span className="text-gray-500">Pedidos Pendentes</span>
-            <span className="text-2xl font-bold">15</span>
-          </div>
-          <div className="bg-white p-4 rounded shadow flex flex-col">
-            <span className="text-gray-500">Lucro</span>
-            <span className="text-2xl font-bold">R$ 10.500</span>
-          </div>
+          {summary.map((c, i) => (
+            <Card key={i} title={c.title} value={c.value} color={c.color} />
+          ))}
         </div>
-
-        {/* Data Table */}
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">Últimos Pedidos</h2>
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr>
-                <th className="border-b px-4 py-2">Cliente</th>
-                <th className="border-b px-4 py-2">Produto</th>
-                <th className="border-b px-4 py-2">Valor</th>
-                <th className="border-b px-4 py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border-b px-4 py-2">João Silva</td>
-                <td className="border-b px-4 py-2">Academia FitPlay</td>
-                <td className="border-b px-4 py-2">R$ 500</td>
-                <td className="border-b px-4 py-2 text-green-600 font-semibold">Concluído</td>
-              </tr>
-              <tr>
-                <td className="border-b px-4 py-2">Maria Oliveira</td>
-                <td className="border-b px-4 py-2">Treino Online</td>
-                <td className="border-b px-4 py-2">R$ 200</td>
-                <td className="border-b px-4 py-2 text-yellow-600 font-semibold">Pendente</td>
-              </tr>
-              <tr>
-                <td className="border-b px-4 py-2">Carlos Souza</td>
-                <td className="border-b px-4 py-2">Personal Trainer</td>
-                <td className="border-b px-4 py-2">R$ 350</td>
-                <td className="border-b px-4 py-2 text-red-600 font-semibold">Cancelado</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <Table columns={tableColumns} data={tableData} />
       </div>
     </div>
   );
