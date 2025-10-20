@@ -1,26 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import Nav from "./Nav";
+import Nav from "./Nav.jsx";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Navbar fixa */}
+    <div className="min-h-screen bg-gray-100 text-gray-900">
       <Nav />
-
-      {/* Espaço para compensar a altura da navbar */}
-      <div className="pt-16 flex-1">
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Outlet />
-        </main>
-      </div>
-
-      {/* Rodapé */}
-      <footer className="bg-white border-t border-gray-200 py-4 text-center text-sm text-gray-500">
-        <p>
-          © {new Date().getFullYear()} <span className="font-semibold">FitPlay</span> — Todos os direitos reservados.
+      <main className="p-8 text-center">
+        <h1 className="text-4xl font-bold mb-4">FitPlay</h1>
+        <p className="text-lg text-gray-600">
+          Bem-vindo à plataforma de gestão fitness mais moderna do mercado.
         </p>
-      </footer>
+      </main>
     </div>
   );
 };
