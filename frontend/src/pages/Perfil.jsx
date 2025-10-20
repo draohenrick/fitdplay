@@ -1,35 +1,31 @@
-// src/pages/Perfil.jsx
-import React from 'react';
+import React from "react";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 const Perfil = () => {
-  const usuario = {
-    nome: 'João Silva',
-    email: 'joao@email.com',
-    telefone: '1234-5678',
-    funcao: 'Gerente',
-  };
-
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-start">
-      <div className="bg-white p-6 rounded shadow w-full max-w-md">
-        <h1 className="text-3xl font-semibold mb-4">Meu Perfil</h1>
-        <div className="space-y-2">
-          <p>
-            <strong>Nome:</strong> {usuario.nome}
-          </p>
-          <p>
-            <strong>Email:</strong> {usuario.email}
-          </p>
-          <p>
-            <strong>Telefone:</strong> {usuario.telefone}
-          </p>
-          <p>
-            <strong>Função:</strong> {usuario.funcao}
-          </p>
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar />
+      <div className="flex-1 p-6 overflow-auto">
+        <Header title="Perfil do Usuário" />
+        <div className="bg-white p-6 rounded shadow max-w-md">
+          <div className="flex items-center mb-4">
+            <img
+              src="https://via.placeholder.com/80"
+              alt="Usuário"
+              className="rounded-full mr-4"
+            />
+            <div>
+              <h2 className="text-xl font-semibold">Lucas Almeida</h2>
+              <p className="text-gray-500">lucas@gmail.com</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <p><strong>Telefone:</strong> 1199999-9999</p>
+            <p><strong>Função:</strong> Gerente</p>
+            <p><strong>Status:</strong> Ativo</p>
+          </div>
         </div>
-        <button className="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Editar Perfil
-        </button>
       </div>
     </div>
   );
