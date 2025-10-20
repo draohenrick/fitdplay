@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import Card from "../components/Card";
 import Table from "../components/Table";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { useAuth } from "../context/AuthContext";
 
 const STATUS_COLORS = {
   Concluído: "text-green-600 font-semibold",
@@ -13,7 +12,6 @@ const STATUS_COLORS = {
 };
 
 const DashboardGerente = () => {
-  const { user } = useAuth();
   const [summary, setSummary] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [chartData, setChartData] = useState([]);
@@ -25,7 +23,6 @@ const DashboardGerente = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simulação de dados
         setSummary([
           { title: "Faturamento Hoje", value: "R$ 15.000", color: "green" },
           { title: "Clientes Ativos", value: "120", color: "blue" },
@@ -68,7 +65,7 @@ const DashboardGerente = () => {
     (filterStatus === "Todos" ? tableData.length : tableData.filter(row => row.Status === filterStatus).length) / rowsPerPage
   ), [tableData, filterStatus]);
 
-  if (loading) return <div className="flex items-center justify-center h-screen">Carregando...</div>;
+  if (loading) return <div className="flex items-center justify-center h-screen">Carregando dashboard...</div>;
 
   return (
     <div className="flex h-screen bg-gray-100">
