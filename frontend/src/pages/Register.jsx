@@ -1,73 +1,72 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [erro, setErro] = useState("");
-  const navigate = useNavigate();
+  const [tipo, setTipo] = useState("gerente");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://fitdplay.onrender.com/api/auth/register", {
-        nome,
-        email,
-        senha,
-      });
-      navigate("/login");
-    } catch (error) {
-      setErro("Erro ao cadastrar. Verifique os dados.");
+      await axios.post("https://fitdplay-backend.onrender.com/api/auth/register", { nome, email, senha, tipo });
+      alert("Cadastro realizado com sucesso!");
+      window.location.href = "/login";
+    } catch (err) {
+      alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-green-500 via-blue-500 to-purple-500">
-      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">Crie sua conta</h1>
-        <p className="text-center text-gray-500 mb-6">Comece a usar o FitDplay hoje</p>
-        {erro && <p className="text-red-500 text-center mb-2">{erro}</p>}
-        <form onSubmit={handleRegister} className="space-y-4">
-          <input
-            type="text"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none"
-            placeholder="Nome completo"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-400 outline-none"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl transition font-medium"
-          >
-            Cadastrar
-          </button>
-        </form>
-        <p className="text-center text-gray-600 mt-6 text-sm">
-          Já tem conta?{" "}
-          <Link to="/login" className="text-green-700 font-semibold hover:underline">
-            Entrar
-          </Link>
-        </p>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
+      <form onSubmit={handleRegister} className="bg-white p-8 rounded-2xl shadow-lg w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Cadastro de Usuário</h2>
+
+        <input
+          type="text"
+          placeholder="Nome completo"
+          className="w-full p-3 border rounded-lg mb-4"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          required
+        />
+
+        <input
+          type="email"
+          placeholder="E-mail"
+          className="w-full p-3 border rounded-lg mb-4"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Senha"
+          className="w-full p-3 border rounded-lg mb-4"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          required
+        />
+
+        <select
+          className="w-full p-3 border rounded-lg mb-4"
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+        >
+          <option value="gerente">Gerente</option>
+          <option value="vendedor">Vendedor</option>
+          <option value="loja">Loja</option>
+        </select>
+
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
+        >
+          Cadastrar
+        </button>
+      </form>
     </div>
   );
 }
