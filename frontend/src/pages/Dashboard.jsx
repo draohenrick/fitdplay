@@ -1,54 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import API from '../api';
-import Layout from '../components/Layout.jsx';
-
-export default function Dashboard(){
-  const [overview, setOverview] = useState(null);
-  const tenantName = localStorage.getItem('tenantName') || 'Demo FitStore';
-
-  useEffect(()=>{
-    async function load(){
-      try{
-        const res = await API.get('/reports/overview');
-        setOverview(res.data);
-      }catch(err){
-        console.error(err);
-      }
-    }
-    load();
-  },[]);
-
+// src/pages/DashboardGerente.jsx
+export default function DashboardGerente() {
   return (
-    <Layout>
-      <div className="card">
-        <h2>Dashboard</h2>
-        <div className="small">Loja: <strong>{tenantName}</strong></div>
-      </div>
+    <div className="p-10 text-center bg-gradient-to-tr from-blue-600 via-purple-600 to-pink-500 min-h-screen text-white">
+      <h1 className="text-4xl font-bold mb-4">Painel do Gerente</h1>
+      <p>Bem-vindo! Aqui você pode gerenciar vendedores e lojas.</p>
+    </div>
+  );
+}
 
-      <div style={{height:12}} />
+// src/pages/DashboardVendedor.jsx
+export default function DashboardVendedor() {
+  return (
+    <div className="p-10 text-center bg-gradient-to-tr from-green-500 via-blue-500 to-purple-600 min-h-screen text-white">
+      <h1 className="text-4xl font-bold mb-4">Painel do Vendedor</h1>
+      <p>Acompanhe suas vendas e metas aqui.</p>
+    </div>
+  );
+}
 
-      <div className="grid">
-        <div className="card">
-          <div className="small">Vendas Hoje</div>
-          <div className="stat">R$ {overview ? overview.todaySales.toFixed(2) : '0.00'}</div>
-          <div className="small">{overview ? overview.todayCount+' vendas' : '0 vendas'}</div>
-        </div>
-        <div className="card">
-          <div className="small">Vendas do Mês</div>
-          <div className="stat">R$ {overview ? overview.monthSales.toFixed(2) : '0.00'}</div>
-          <div className="small">{overview ? overview.monthCount+' vendas' : '0 vendas'}</div>
-        </div>
-        <div className="card">
-          <div className="small">Valor em Estoque</div>
-          <div className="stat">R$ 0.00</div>
-          <div className="small">{overview ? overview.productsCount+' produtos' : '0 produtos'}</div>
-        </div>
-        <div className="card">
-          <div className="small">Estoque Baixo</div>
-          <div className="stat">{overview ? overview.lowStockCount : 0}</div>
-          <div className="small">Produtos precisam reposição</div>
-        </div>
-      </div>
-    </Layout>
-  )
+// src/pages/DashboardLoja.jsx
+export default function DashboardLoja() {
+  return (
+    <div className="p-10 text-center bg-gradient-to-tr from-orange-500 via-pink-500 to-purple-600 min-h-screen text-white">
+      <h1 className="text-4xl font-bold mb-4">Painel da Loja</h1>
+      <p>Gerencie seus produtos, estoque e pedidos.</p>
+    </div>
+  );
 }
