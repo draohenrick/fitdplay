@@ -1,22 +1,40 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import PrivateRoute from "./routes/PrivateRoute";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+
+// Exemplo simples de verificação de autenticação
+const isAuthenticated = () => {
+  return localStorage.getItem("token") !== null;
+};
+
+const ProtectedRoute = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/login" />;
+};
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {/* Páginas públicas */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      {/* Rotas protegidas (apenas para usuários logados) */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Dashboard />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Qualquer rota inexistente redireciona para o login */}
+      <Route path="*" element={<Navigate to="/login" />} />
+    </Routes>
   );
 }
