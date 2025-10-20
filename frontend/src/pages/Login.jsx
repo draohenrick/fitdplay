@@ -1,65 +1,57 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://fitdplay.onrender.com/api/auth/login", {
-        email,
-        senha,
-      });
-
+      const res = await axios.post("https://fitdplay-backend.onrender.com/api/auth/login", { email, senha });
       localStorage.setItem("token", res.data.token);
-      navigate("/");
-    } catch (error) {
-      setErro("Usuário ou senha incorretos.");
+      const tipo = res.data.user.tipo;
+
+      if (tipo === "gerente") navigate("/gerente");
+      else if (tipo === "vendedor") navigate("/vendedor");
+      else navigate("/loja");
+    } catch (err) {
+      alert("Erro ao fazer login. Verifique suas credenciais.");
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-blue-600 via-purple-600 to-pink-500">
-      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">FitDplay</h1>
-        <p className="text-center text-gray-500 mb-6">Entre para gerenciar seu negócio</p>
-        {erro && <p className="text-red-500 text-center mb-2">{erro}</p>}
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input
-            type="email"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
-            placeholder="Seu e-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
-            placeholder="Sua senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition font-medium"
-          >
-            Entrar
-          </button>
-        </form>
-        <p className="text-center text-gray-600 mt-6 text-sm">
-          Não tem conta?{" "}
-          <Link to="/register" className="text-blue-700 font-semibold hover:underline">
-            Cadastre-se
-          </Link>
-        </p>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-tr from-blue-500 via-purple-600 to-pink-500">
+      <form onSubmit={handleLogin} className="bg-white p-8 rounded-2xl shadow-lg w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Acessar Conta</h2>
+
+        <input
+          type="email"
+          placeholder="E-mail"
+          className="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Senha"
+          className="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          required
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
+        >
+          Entrar
+        </button>
+      </form>
     </div>
   );
 }
