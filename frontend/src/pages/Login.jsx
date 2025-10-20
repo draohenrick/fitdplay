@@ -24,43 +24,38 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-4 text-gray-800">Acesse sua conta</h2>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-blue-600 via-purple-600 to-pink-500">
+      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">FitDplay</h1>
+        <p className="text-center text-gray-500 mb-6">Entre para gerenciar seu negócio</p>
         {erro && <p className="text-red-500 text-center mb-2">{erro}</p>}
         <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 mb-1">E-mail</label>
-            <input
-              type="email"
-              className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200"
-              placeholder="seu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-1">Senha</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200"
-              placeholder="********"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            type="email"
+            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            placeholder="Sua senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition font-medium"
           >
             Entrar
           </button>
         </form>
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Não tem uma conta?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
+        <p className="text-center text-gray-600 mt-6 text-sm">
+          Não tem conta?{" "}
+          <Link to="/register" className="text-blue-700 font-semibold hover:underline">
             Cadastre-se
           </Link>
         </p>
