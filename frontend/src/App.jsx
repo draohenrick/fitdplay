@@ -1,30 +1,36 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
 import DashboardGerente from "./pages/DashboardGerente";
 import DashboardVendedor from "./pages/DashboardVendedor";
-import DashboardLoja from "./pages/DashboardLoja";
-import Clientes from "./pages/Clientes";
-import Pedidos from "./pages/Pedidos";
-import Produtos from "./pages/Produtos";
-import Perfil from "./pages/Perfil";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-const App = () => {
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/dashboard-gerente" />} />
-        <Route path="/dashboard-gerente" element={<DashboardGerente />} />
-        <Route path="/dashboard-vendedor" element={<DashboardVendedor />} />
-        <Route path="/dashboard-loja" element={<DashboardLoja />} />
-        <Route path="/clientes" element={<Clientes />} />
-        <Route path="/pedidos" element={<Pedidos />} />
-        <Route path="/produtos" element={<Produtos />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="*" element={<div className="p-6">Página não encontrada</div>} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/dashboard-gerente"
+            element={
+              <ProtectedRoute roles={["gerente"]}>
+                <DashboardGerente />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard-vendedor"
+            element={
+              <ProtectedRoute roles={["vendedor"]}>
+                <DashboardVendedor />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
-};
+}
 
 export default App;
