@@ -6,17 +6,17 @@ import Table from "../components/Table";
 
 const DashboardLoja = () => {
   const summary = [
-    { title: "Vendas Hoje", value: "R$ 7.800", color: "green" },
-    { title: "Produtos", value: "120", color: "blue" },
-    { title: "Pedidos Pendentes", value: "18", color: "yellow" },
-    { title: "Clientes Ativos", value: "90", color: "gray" },
+    { title: "Pedidos Hoje", value: "32", color: "green" },
+    { title: "Produtos em Estoque", value: "120", color: "blue" },
+    { title: "Produtos Esgotados", value: "8", color: "red" },
+    { title: "Lucro do Dia", value: "R$ 4.500", color: "yellow" },
   ];
 
-  const tableColumns = ["Cliente", "Produto", "Quantidade", "Valor", "Status"];
+  const tableColumns = ["Produto", "Categoria", "Estoque", "Preço", "Status"];
   const tableData = [
-    { Cliente: "Lucas Almeida", Produto: "Treino Online", Quantidade: 1, Valor: "R$ 200", Status: "Concluído" },
-    { Cliente: "Fernanda Souza", Produto: "Academia FitPlay", Quantidade: 2, Valor: "R$ 1.000", Status: "Pendente" },
-    { Cliente: "Gustavo Lima", Produto: "Personal Trainer", Quantidade: 1, Valor: "R$ 350", Status: "Cancelado" },
+    { Produto: "Treino Online", Categoria: "Digital", Estoque: "-", Preço: "R$ 200", Status: "Disponível" },
+    { Produto: "Academia FitPlay", Categoria: "Presencial", Estoque: 5, Preço: "R$ 500", Status: "Disponível" },
+    { Produto: "Personal Trainer", Categoria: "Serviço", Estoque: "-", Preço: "R$ 350", Status: "Disponível" },
   ];
 
   return (
