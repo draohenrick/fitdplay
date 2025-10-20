@@ -1,21 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-export default function Nav() {
+const Nav = () => {
   return (
-    <nav className="bg-primary text-white shadow-md px-6 py-4 flex justify-between items-center">
-      <h1 className="text-xl font-bold tracking-wide">FitDplay</h1>
-      <ul className="flex space-x-6">
-        <li>
-          <Link to="/" className="hover:text-accent transition-colors">Home</Link>
-        </li>
-        <li>
-          <Link to="/login" className="hover:text-accent transition-colors">Login</Link>
-        </li>
-        <li>
-          <Link to="/register" className="hover:text-accent transition-colors">Cadastro</Link>
-        </li>
+    <nav className="bg-gradient-to-r from-blue-600 to-pink-500 text-white py-4 px-6 flex justify-between items-center shadow-lg">
+      <h1 className="text-2xl font-bold">FitPlay</h1>
+      <ul className="flex gap-6 text-lg">
+        <li><a href="#" className="hover:underline">Início</a></li>
+        <li><a href="#" className="hover:underline">Login</a></li>
+        <li><a href="#" className="hover:underline">Registrar</a></li>
       </ul>
     </nav>
   );
-}
+};
+
+export default Nav;
