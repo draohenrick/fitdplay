@@ -1,12 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-// Dashboards
 import DashboardGerente from "./pages/DashboardGerente";
 import DashboardVendedor from "./pages/DashboardVendedor";
 import DashboardLoja from "./pages/DashboardLoja";
-
-// Páginas adicionais
 import Clientes from "./pages/Clientes";
 import Pedidos from "./pages/Pedidos";
 import Produtos from "./pages/Produtos";
