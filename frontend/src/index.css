@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-900 text-white font-sans;
+  @apply bg-gradient-to-br from-blue-50 via-white to-blue-100 text-gray-800 min-h-screen;
+  font-family: 'Poppins', sans-serif;
 }
